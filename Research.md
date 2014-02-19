@@ -1,6 +1,5 @@
 
 # Background research Algorithms 
- =======
 ## generateKeypair
 What algorithm is to be used?
 There are plenty of fish in the sea, or not reelly, not in our case. Since we are limited by the 

@@ -1,54 +1,26 @@
 
 # Background research Algorithms 
 ## generateKeypair
+
+### first thought
 What algorithm is to be used?
 There are plenty of fish in the sea, or not reelly, not in our case. Since we are limited by the 
-methods containes in the W3C's webcrypto api, along with the browser specific implementations available. First, the establishmen of a basic understanding is not to underestimate.
-Listed as in the W3C document hereby i present the candidates.
+methods containes in the W3C's webcrypto api, along with the browser specific implementations available. I, have chosen to use the "AES-CBC", and I want to motivate this choice by first refering to the 
+table ['Registered algorithms'](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-KeyUsage.) Interpreting this table along with the cromium develpment [spreedsheet](https://docs.google.com/spreadsheet/ccc?key=0Agiw0cuQZfVGdHNUNXBhZEFkazkyVy1uM1pISnlKRWc#gid=0), "AES-CBC" is the only algorithm where all these properties allready have been implentend.
 
-- RSASSA-PKCS1-v1_5
-  - The "RSASSA-PKCS1-v1_5" algorithm identifier is used to perform signing and verification using the RSASSA-PKCS1-v1_5
-  - Sign,Verify,Generate
+- importKey-raw
+- importKey-jwk
+- exportKey-raw
+- exportKey-jwk
+- decrypt
+- encrypt
+- generateKey
 
-- RSA-PSS
-  - The "RSA-PSS" algorithm identifier is used to perform signing and verification using the RSASSA-PSS algorithm 
-  - Sign,Verify,Generate
+Since 'AES-CBC' knows how to export to raw, and 'HMAC' knows how to import to raw; there might be a possibility that we could convert when we want to sign or verify.
 
-- RSA-OAEP
-  - The "RSA-OAEP" algorithm identifier is used to perform encryption and decryption ordering to the RSAES-OAEP algorithm
-  - Sign,Verify,Generate
+### second thought
+As it turns out we cannot generate a keypair using "AES-CBC" therefor wee have to go with RSAES-PKCS1-v1_5.
 
-- ECDH
-  - This describes using Elliptic Curve Diffie-Hellman (ECDH) for key generation and key agreement
 
-- Diffie-Hellman
-  - This describes using Diffie-Hellman for key generation and key agreement
 
-These algorithms have been picked as much for their presens in the api, as for their abillity to return a Keypair.  
-
-18.1. Registered algorithms
-
-| Algorithm name | encrypt | decrypt | sign | verify | digest | generateKey | deriveKey | deriveBits |  importKey | exportKey | wrapKey | unwrapKey |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
-|RSAES-PKCS1-v1_5 | ✔| ✔|  |  |  | ✔|  |  | ✔| ✔| ✔| ✔|
-|RSASSA-PKCS1-v1_5|  |  | ✔| ✔|  | ✔|  |  | ✔| ✔|  |  |
-|RSA-PSS|  |  | ✔| ✔|  | ✔|  |  | ✔| ✔|   
-|RSA-OAEP|  |✔ |✔ |  |  |  |✔ |  |  |✔ |✔ |✔ |✔ |
-|ECDSA|  |  | ✔| ✔|  | ✔|  |  | ✔| ✔|  |  |  |  |
-|ECDH |  |  |  |  |  | ✔| ✔| ✔| ✔| ✔|  |  |  |  |  
-|AES-CTR| ✔| ✔|  |  |  | ✔|  |  | ✔| ✔| ✔| ✔|  |
-|AES-CBC| ✔| ✔|  |  |  | ✔|  |  | ✔| ✔| ✔| ✔|  |
-|AES-CMAC|      ✔ ✔   ✔     ✔ ✔   
-|AES-GCM| ✔ ✔       ✔     ✔ ✔ ✔ ✔
-|AES-CFB| ✔ ✔       ✔     ✔ ✔ ✔ ✔
-|AES-KW|            ✔     ✔ ✔ ✔ ✔
-|HMAC|      ✔ ✔   ✔     ✔ ✔   
-|DH|            ✔ ✔ ✔ ✔ ✔   
-|SHA-1|         ✔             
-|SHA-224|         ✔             
-|SHA-256|         ✔             
-|SHA-384|         ✔             
-|SHA-512|         ✔             
-|CONCAT|              ✔ ✔       
-|HKDF-CTR|              ✔ ✔       
-|PBKDF2 |             ✔ ✔       
+    

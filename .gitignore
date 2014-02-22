@@ -1,0 +1,10 @@
+node_modules
+test/testvars.js
+lib/utils
+npm-debug.log
+build/
+private_key.pem
+public_key.pem
+Research.md
+*.DS_Store
+

@@ -1,0 +1,39 @@
+<head>
+  <link rel="stylesheet" href="test/vendor/mocha.css" />
+  <!-- modules -->
+  <script src="build/bundle.js"></script>
+  <!-- utilities -->
+
+</head>
+<body>
+<center>
+<image src="http://www.ipnav.com/default/assets/Image/Thief.jpg" width="100" height="100"></image>
+<image src="http://markdown-here.com/img/chromium.png" width="100" height="100"></image>
+<br>
+Version > 33.0.1750.112
+<hr>
+</center>
+<div id="mocha"></div>
+
+  <!-- Dependencies -->
+  <script src="test/vendor/q.js"></script>
+  <script src="lib/crypto.js"></script>
+
+  <!-- Test dependencies -->
+    <script src="test/vendor/mocha.js"></script>
+    <script src="test/vendor/chai.js"></script>
+    <script src="test/vendor/mocha-as-promised.js"></script>
+    <script src="test/vendor/chai-as-promised.js"></script>
+    <script>
+      mocha.ui('bdd');
+      should = chai.should;
+    </script>
+
+    <!-- Tests -->
+    <script src="test/generatekeypair.js"></script>
+
+    <script>
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+      else { mocha.run(); }
+    </script> 
+</body>

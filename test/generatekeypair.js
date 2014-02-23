@@ -1,6 +1,7 @@
 //var assert = require("assert")
 var should = chai.should();
 var public1 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuXkhM6ZRBZiJKRakoh3fecYynMMfIqK5+bZtWUkav+GAWpgqJOFCvg/f5TRb9K7MPzHYYmHfYot+o0HVQgSsyssiDH6oouFawLdXaOPAfvmoeolLTHTLdMarb0f2hDML2ichCIJTQ2YsiYNS7cG03WgvLnV563WjMHPrUGZwrleC638YQNSw0A4bnQy81R5n2EJBAVtatuuUa8vaQv4qoO9qjYnF9LKKCla/i3QhFlMM+6GKZfmpfoZJ7eqbhZS7Itzz8Oi8rbUQzyFB/xSMg5f8D9imQVBJZq3sl34AvDMHrojnyQgIIqlAjr3LxKxnWm/yxCa4Z5ZdTkVYgAM4WwIDAQAB"
+
 var bytes = new Uint8Array(1024);
 describe("#SupportedBrowser: ",function(){
   it("Browserversion up to date",function(){
@@ -88,15 +89,42 @@ describe("#Keyconverting: ",function(){
             //key.be.a("Uint8Array");
           })
     )})
+
+describe("#ResourceEncryption: ",function(){
+
+  console.log('hit1');
+
+  it("Text should be encrypted: ", function(){
+
+    console.log('hit2');
+
+
+
+    window.Crypto.importKey(window.Crypto.Base64.parse(public1)).then(
+
+      function(key){
+        console.log('hit3');
+
+        window.Crypto.encryptText(key,'Testing text encryption',123).then(
+          
+          function(encryptedString) {
+
+            console.log('hit4');
+            encryptedString.should.be.a('Integer');
+          
+          });
+      }
+    );
+
+  })
+
+});
+
+
+
+describe("#ResourceDecryption: ",function(){
+  it("Testar!",function(){
+
   })
 });
-describe("#Encryption: ",function(){
 
-});
-
-
-
-describe("#Decryption: ",function(){
-
-
-});  

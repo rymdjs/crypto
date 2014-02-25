@@ -28,7 +28,7 @@ describe("#Keygenerating: ",function(){
 });
 describe("#Keyimporting: ",function(){
   it("Chrome: should import from Uint8Array: ",function(){
-    key = window.Crypto.Base64.parse(public1);
+    key = window.Crypto._base64ToUint8Array(public1);
     window.Crypto.importKey(key).then(function(key){
       key.should.exist;
       key.should.be.a("Uint8Array");
@@ -59,11 +59,12 @@ describe("#Keyexporting: ",function(){
 });
 describe("#Keyconverting: ",function(){
   it("Chrome: should convert to Base64: ",function(){
-    window.Crypto.Base64.toString(bytes).should.be.a("String");
+    window.Crypto._uint8ArrayToString(bytes).should.be.a("String");
     //window.Crypto.Base64.parse(bytes).length.should.be.above(0);
   })     
   it("Chrome: should convert from Base64: ",function(){
-    (window.Crypto.Base64.parse(public1)).should.be.a("Uint8Array");
+    (window.Crypto._base64ToUint8Array
+      (public1)).should.be.a("Uint8Array");
     })
 
     //promise.should.be.a("Uint8Array")   

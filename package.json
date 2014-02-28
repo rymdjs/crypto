@@ -1,16 +1,20 @@
 {
-  "name": "crypto",
+  "name": "rcrypto",
   "description": "Sample module project for course DATX02",
   "version": "0.0.1",
   "license": "MIT",
   "main": "lib/crypto.js",
   "dependencies": {
-    "q": "1.0.x"
+    "q": "1.0.x",
+    "big-integer": "~1.1.8",
+    "primality": "~1.6.1"
   },
   "scripts": {
     "test": "gulp test"
   },
   "devDependencies": {
+    "ursa": "~0.8.0",
+    "crypto": "0.0.3",
     "browserify": "~3.0",
     "gulp-util": "~2.2.14",
     "gulp": "~3.5.1",
@@ -19,6 +23,10 @@
     "gulp-clean": "~0.2.4",
     "gulp-concat": "~2.1.7",
     "gulp-mocha": "~0.4.1",
-    "connect": "~2.13.0"
+    "connect": "~2.13.0",
+    "big-integer": "~1.1.8",
+    "primality": "~1.6.1",
+    "bignumber-jt": "~1.2.0",
+    "crypto-js": "~3.1.2-2"
   }
 }

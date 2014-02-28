@@ -25,4 +25,8 @@ on their homepage the do provide some indexdb
 Since we all agreed upon that the crypto operations was to be preformed om the client side, there where not that many possible api candidates. `Polycrypt` is namely using a server to simulate the features specified in the webcrypto api,this makes it not so suttible for our purpose. The `Polycrypto` team has also contributed to a firefox none sever-dependent plugin named `Foxycrypt` it so happes to be that `Foxycrypt` is somthing close to a soley authorty. and it's not realy up to date:P
 The obious choies is to use the the experimental web features implemented in `Chrome beta`,it's the only implemntation that is totaly in phase with the The web api development process,in other words up to date. 
 
+## How do we solve the problem regarding exporting keys
+
+WebCrypto keys are supposed to implement structured clone so in the future that would be the easiest way to serialize it to local storage.
+
 

@@ -5,7 +5,7 @@ var bytes = new Uint8Array(1024);
 describe("#SupportedBrowser: ",function(){
   it("Browserversion up to date",function(){
     (window.navigator.appVersion.match(/Chrome\/(.*?) /)[1])
-    .should.equal("33.0.1750.117");
+    .should.equal("34.0.1848.0");
 
   })
 });

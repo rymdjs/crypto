@@ -9,10 +9,10 @@ The interface will provide the following:
     generateKeyPair: function() -> Promise({Uint8array,Uint8array})
     exportKey: function(WebCrypto::Key) -> Promise({Uint8array})
     importKey: function(String,Uint8array) -> Promise(WebCrypto::Key)
-    signKey: function(WebCrypto::Key,String) -> Promise
-    verifyKey: function(WebCrypto::Key,String) -> Promise
-    encrypt**: function(WebCrypto::Key,Uint8Array) -> Promise(Arraybuffer)
-    decrypt**: function(WebCrypto::Key,Uint8Array) -> Promise(Arraybuffer)
+    signKey: function(WebCrypto::Key,Uint16Array) -> Promise
+    verifyKey: function(WebCrypto::Key,Uint16Array,Uint16Array) -> Promise
+    encrypt**: function(WebCrypto::Key,Uint16Array) -> Promise(Arraybuffer)
+    decrypt**: function(WebCrypto::Key,Uint16Array) -> Promise(Arraybuffer)
     generateSymmetricKey: function() -> Promise(WebCrypto::Key)
 
 ## Get started

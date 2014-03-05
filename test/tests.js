@@ -11,6 +11,17 @@ describe("#SupportedBrowser: ",function(){
 });
 
 
+// describe("Crypto", function() {
+
+//   describe("generateKeypair", function() {
+
+//     it("should ...", function() {
+      
+//     })
+
+//   })
+// })
+
 
 describe("#Keygenerating: ",function(){
   it("Chrome: should generate publicKey: ",function(){

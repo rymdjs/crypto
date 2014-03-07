@@ -239,17 +239,11 @@ describe("exportKey",function(){
   });
 });
 
-
-
-
-
-
-
 describe("signKey",function(){
   it("should sign with \'Signature\' and return a ArrayBuffer{}",function(){
   return RymdCrypto.generateKeyPair().then(function(key2){
     return RymdCrypto.importSignKey('private',key2.privateKey).then(function(key222){
-      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").should.eventually.be.a('ArrayBuffer');
+      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").should.eventually.equal({});
     })
     })
   })

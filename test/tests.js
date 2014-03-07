@@ -57,7 +57,7 @@ describe("cryptoback.js",function(){
       }).should.throw();
     });
     it("should return a promise",function(){
-      return RymdCrypto.RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.be.ok;
+      return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.be.ok;
 
     });
     describe("publicKey",function(){

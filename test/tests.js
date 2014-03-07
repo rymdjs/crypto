@@ -221,11 +221,9 @@ describe("exportKey",function(){
 
   });
   it("should given a Private Key return a "+testArgs.exportKey.returns,function(){
-    (function(){
-      return RymdCrypto.importEncryptKey('private',testArgs.importKey.from[1]).then(function(key){
-        return RymdCrypto.exportKey(key);
+    return RymdCrypto.importEncryptKey('private',testArgs.importKey.from[1]).then(function(key){
+      RymdCrypto.exportKey(key).should.be.rejected;
     })
-      }).should.throw()
   });
 });
 

@@ -49,16 +49,6 @@ var testArgs = {
 };
 
 
-
-
-
-describe("General",function(){
-  it("Chrome Version >  35.0.1800.0",function(){
-    (window.navigator.appVersion.match(/Chrome\/(.*?) /)[1])
-    .should.greaterThan("35.0.1800.0");
-  });
-});
-
 describe("cryptoback.js",function(){
   describe("_generateRSAKeypair",function(){
     it("should throw a error if invalid arguments",function(){

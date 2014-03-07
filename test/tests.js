@@ -11,7 +11,7 @@ var exampledataStrings ={
   ,invalid:"123 ABCabc #!@#$%^&*()_"
 };
 
-var exampledataArrays ={
+var exampledataArrays = {
 
   stdMessage:
   new Uint8Array([83, 117, 112, 101, 114, 32, 115, 101, 99, 114, 101, 116,
@@ -22,16 +22,16 @@ var exampledataArrays ={
   new Uint8Array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
   ,public1:
-  new Uint8Array(Utils._base64ToUint8Array(public1))
+  new Uint8Array(RymdCrypto.Utils._base64ToUint8Array(public1))
 
   ,private1:
-  new Uint8Array(Utils._base64ToUint8Array(private1))
+  new Uint8Array(RymdCrypto.Utils._base64ToUint8Array(private1))
   ,secret1:
-  new Uint8Array(Utils._base64ToUint8Array(secret1))
+  new Uint8Array(RymdCrypto.Utils._base64ToUint8Array(secret1))
 };
 
 
-var testArgs={
+var testArgs = {
   _generateRSAKeypair: {keyLength:1024}
   , _uint8ArrayToString: {type:'one-one',from: exampledataArrays['b64short'], to: exampledataStrings['b64short'],returns:'String'}
   , _base64ToUint8Array: {type:'one-one',from: exampledataStrings['b64short'], to: exampledataArrays['b64short'],returns:'Object'}
@@ -63,36 +63,36 @@ describe("cryptoback.js",function(){
   describe("_generateRSAKeypair",function(){
     it("should throw a error if invalid arguments",function(){
       (function(){
-        Utils._generateRSAKeypair();
+        RymdCrypto.Utils._generateRSAKeypair();
       }).should.throw();
     });
     it("should return a promise",function(){
-      return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.be.ok;
+      return RymdCrypto.RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.be.ok;
 
     });
     describe("publicKey",function(){
       it("should generate a publicKey such that a public Key exists",function(){
-        return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey');
+        return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey');
       });
       it("should generate a publicKey such that a public Key is a Uint8Array",function(){
-        Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.should.be.a('Object');
+        RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.should.be.a('Object');
       });
 
       it("should generate a publicKey such that a public have length 637",function(){
-        return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.lengthOf(162);
+        return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.lengthOf(162);
       });
     });
 
     describe("privateKey",function(){
       it("should generate a publicKey such that a private Key exists",function(){
-        return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey');
+        return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey');
       });
       it("should generate a publicKey such that a public is a Uint8Array",function(){
 //not working apperently
-return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.should.be.a('Object');
+return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.should.be.a('Object');
 });
       it("should generate a publicKey such that a public have length 162",function(){
-        return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.lengthOf(637);
+        return RymdCrypto.Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.lengthOf(637);
       });
 
     });
@@ -100,41 +100,41 @@ return Utils._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.
 
 describe("_uint8ArrayToString",function(){
   it("should return a string",function(){
-    Utils._uint8ArrayToString(testArgs._uint8ArrayToString.from).should.be.a(testArgs._uint8ArrayToString['returns']);
+    RymdCrypto.Utils._uint8ArrayToString(testArgs._uint8ArrayToString.from).should.be.a(testArgs._uint8ArrayToString['returns']);
   }
   )
   it(("should given '"+testArgs._uint8ArrayToString.from +"' return "+testArgs._uint8ArrayToString.to),function(){
-    Utils._uint8ArrayToString(testArgs._uint8ArrayToString.from).should.equal(testArgs._uint8ArrayToString.to);
+    RymdCrypto.Utils._uint8ArrayToString(testArgs._uint8ArrayToString.from).should.equal(testArgs._uint8ArrayToString.to);
   }
   )
 });
 describe("_base64ToUint8Array",function(){
   it("should return a Uint8Array",function(){
-    Utils._base64ToUint8Array(testArgs._base64ToUint8Array.from).should.be.a(testArgs._base64ToUint8Array.returns);
+    RymdCrypto.Utils._base64ToUint8Array(testArgs._base64ToUint8Array.from).should.be.a(testArgs._base64ToUint8Array.returns);
   }
   )
   it(("should given '"+testArgs._base64ToUint8Array.from +"' return "+testArgs._base64ToUint8Array.to),function(){
-    Utils._base64ToUint8Array(testArgs._base64ToUint8Array.from).should.eql(testArgs._base64ToUint8Array.to);
+    RymdCrypto.Utils._base64ToUint8Array(testArgs._base64ToUint8Array.from).should.eql(testArgs._base64ToUint8Array.to);
   }
   )
 });
 describe("_arraybufferToString",function(){
   it("should return a "+testArgs._arraybufferToString.returns,function(){
-    Utils._arraybufferToString(testArgs._arraybufferToString.from).should.be.a(testArgs._arraybufferToString.returns);
+    RymdCrypto.Utils._arraybufferToString(testArgs._arraybufferToString.from).should.be.a(testArgs._arraybufferToString.returns);
   }
   )
   it(("should given '"+testArgs._arraybufferToString.from +"' return "+testArgs._arraybufferToString.to),function(){
-    Utils._arraybufferToString(testArgs._arraybufferToString.from).should.eql(testArgs._arraybufferToString.to);
+    RymdCrypto.Utils._arraybufferToString(testArgs._arraybufferToString.from).should.eql(testArgs._arraybufferToString.to);
   }
   )
 });
 describe("_stringToArrayBuffer",function(){
   it("should return a "+testArgs._stringToArrayBuffer.returns,function(){
-    Utils._stringToArrayBuffer(testArgs._stringToArrayBuffer.from).should.be.a(testArgs._stringToArrayBuffer.returns);
+    RymdCrypto.Utils._stringToArrayBuffer(testArgs._stringToArrayBuffer.from).should.be.a(testArgs._stringToArrayBuffer.returns);
   }
   )
   it(("should given '"+testArgs._stringToArrayBuffer.from +"' return "+testArgs._stringToArrayBuffer.to),function(){
-    Utils._stringToArrayBuffer(testArgs._stringToArrayBuffer.from).should.eql(testArgs._stringToArrayBuffer.to);
+    RymdCrypto.Utils._stringToArrayBuffer(testArgs._stringToArrayBuffer.from).should.eql(testArgs._stringToArrayBuffer.to);
   }
   )
 });
@@ -223,12 +223,12 @@ describe("importSignKey",function(){
 });
 
 describe("exportKey",function(){
-  
+
   it("should given a Public Key return a "+testArgs.exportKey.returns,function(){
     return RymdCrypto.importEncryptKey('public',testArgs.importKey.from[0]).then(function(key){
         return RymdCrypto.exportKey(key).should.eventually.be.eql(testArgs.importKey.from[0]);
     })
-    
+
   });
   it("should given a Private Key return a "+testArgs.exportKey.returns,function(){
     (function(){
@@ -278,4 +278,3 @@ describe("exportKey",function(){
   })
 });
 });
- 

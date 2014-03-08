@@ -138,6 +138,26 @@ describe("_stringToArrayBuffer",function(){
 // });
 });
 
+//supercool global pollution toxic waste and stuff
+signature = Utils._stringToArrayBuffer("IUOEWUTWEOITUUITWEIOWWIOE");
+RymdCrypto.generateKeyPair().then(function(key){
+      key11 = key.publicKey; 
+      key22 = key.privateKey;
+}).then(function(){
+ RymdCrypto.importSignKey('private',key22).then(function(key){key2 = key})
+}).then(function(){
+ RymdCrypto.importSignKey('public',key11).then(function(key){key1 = key});
+}).then(function(){
+ RymdCrypto.importEncryptKey('private',key22).then(function(key){key3 = key});
+}).then(function(){
+ RymdCrypto.importEncryptKey('public',key11).then(function(key){key4 = key});
+});
+// .then(function(){
+//  RymdCrypto.signKey(key2,signature).then(function(arr){arraybuf = arr});
+// })
+
+
+
 
 
 
@@ -173,9 +193,6 @@ describe("crypto.js",function(){
     });
 
   });
-
-
-
 
  describe("generateSymmetricKey",function(){
    it("should have property algorithm",function(){
@@ -213,12 +230,10 @@ describe("importSignKey",function(){
 });
 
 describe("exportKey",function(){
-
   it("should given a Public Key return a "+testArgs.exportKey.returns,function(){
     return RymdCrypto.importEncryptKey('public',testArgs.importKey.from[0]).then(function(key){
         return RymdCrypto.exportKey(key).should.eventually.be.eql(testArgs.importKey.from[0]);
     })
-
   });
   it("should given a Private Key return a "+testArgs.exportKey.returns,function(){
     return RymdCrypto.importEncryptKey('private',testArgs.importKey.from[1]).then(function(key){
@@ -229,40 +244,27 @@ describe("exportKey",function(){
 
 describe("signKey",function(){
   it("should sign with \'Signature\' and return a ArrayBuffer{}",function(){
-  return RymdCrypto.generateKeyPair().then(function(key2){
-    return RymdCrypto.importSignKey('private',key2.privateKey).then(function(key222){
-      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").should.eventually.equal({});
-    })
-    })
-  })
+      return RymdCrypto.signKey(key2,signature).then(function(arr){arraybuf = arr});
+    });
 });
+
 describe("verifyKey",function(){
-  it("Browserversion up to date",function(){
-    return RymdCrypto.generateKeyPair().then(function(key2){
-    return RymdCrypto.importSignKey('private',key2.privateKey).then(function(key222){
-      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").then(function(data){
-        return RymdCrypto.signKey(key222,data).should.eventually.be('Number');
-      })
-    })
-    })
+  it("should verify \'Signature\' and return true",function(){
+    return RymdCrypto.verifyKey(key1,new Uint8Array(arraybuf),signature).should.eventually.equal(true)
   })
 });
+
 describe("encryptData",function(){
-  it("Browserversion up to date",function(){
-    return RymdCrypto.generateKeyPair().then(function(key2){
-    return RymdCrypto.importSignKey('private',key2.privateKey).then(function(key222){
-      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").should.eventually.be.a('ArrayBuffer');
-    })
-    })
+  it("should encrypt",function(){
+    return RymdCrypto.encryptData(key4,Utils._stringToArrayBuffer("IUOEWUTWEOITUUITWEIOWWIOE")).then(function(gg){data = gg})
   })
 });
-describe("exportKey",function(){
-  it("Browserversion up to date",function(){
-   return RymdCrypto.generateKeyPair().then(function(key2){
-    return RymdCrypto.importSignKey('private',key2.privateKey).then(function(key222){
-      return RymdCrypto.signKey(key222,"IUOEWUTWEOITUUITWEIOWWIOE").should.eventually.be.a('ArrayBuffer');
-    })
-    })
+describe("decryptData",function(){
+  it("should decrypt",function(){
+   return RymdCrypto.decryptData(key3,new Uint8Array(data)).then(
+    function(decrypted){
+      return Utils._arraybufferToString(new Uint8Array(decrypted))
+    }).should.eventually.equal("IUOEWUTWEOITUUITWEIOWWIOE");
   })
 });
 });

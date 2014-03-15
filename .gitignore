@@ -3,10 +3,13 @@ test/testvars.js
 lib/utils
 npm-debug.log
 build/
+nycklar/
 private_key.pem
 public_key.pem
 Research.md
 private.pem
 public.pub
 *.DS_Store
+id_rsa.pem
+
 

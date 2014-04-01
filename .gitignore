@@ -1,5 +1,6 @@
 node_modules
 test/testvars.js
+test/vendor
 lib/utils
 npm-debug.log
 build/

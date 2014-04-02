@@ -44,7 +44,6 @@
     , verifyKey:null
     , encryptData:null
   };
-
   describe("cryptoback.js",function(){
     describe("_generateRSAKeypair",function(){
       it("should throw a error if invalid arguments",function(){
@@ -56,6 +55,20 @@
         return RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.be.ok;
 
       });
+
+      
+      //nothings like global pollution
+      (RymdCrypto.Back._generateRSAKeypair(2048).then(function(key){
+        globalpublic_2048 = key.publicKey;
+        globalprivate_2048 = key.privateKey;
+      }));
+
+      (RymdCrypto.Back._generateRSAKeypair(1024).then(function(key){
+        globalpublic_1024 = key.publicKey;
+        globalprivate_1024 = key.privateKey;
+      }));
+
+
       describe("publicKey",function(){
         it("should generate a publicKey such that a public Key exists",function(){
           return RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey');
@@ -63,8 +76,94 @@
         it("should generate a publicKey such that a public Key is a Uint8Array",function(){
           RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.should.be.a('Object');
         });
-        it("should generate a publicKey such that a public have length 637",function(){
+        it("should generate a 1024 publicKey such that it have length 162",function(){
           return RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('publicKey').with.lengthOf(162);
+        });
+        it("should generate a 2048 publicKey such that it have length 294",function(){
+          this.timeout(10000);
+          return RymdCrypto.Back._generateRSAKeypair(2048).should.eventually.eventually.have.property('publicKey').with.lengthOf(294);
+        });
+        it("should end with [2,3,1,0,1]",function(){
+          var i = (globalpublic_1024.length - 5);
+          globalpublic_1024[i++].should.equal(2);
+           globalpublic_1024[i++].should.equal(3);
+           globalpublic_1024[i++].should.equal(1);
+           globalpublic_1024[i++].should.equal(0);
+           globalpublic_1024[i++].should.equal(1);
+           
+           i = (globalpublic_2048.length - 5);
+           globalpublic_2048[i++].should.equal(2);
+           globalpublic_2048[i++].should.equal(3);
+           globalpublic_2048[i++].should.equal(1);
+           globalpublic_2048[i++].should.equal(0);
+           globalpublic_2048[i++].should.equal(1);
+          
+          
+        });
+        it("should if 2048, start with [48,130,1,34,48]",function(){
+           globalpublic_2048[0].should.equal(48);
+           globalpublic_2048[1].should.equal(130);
+           globalpublic_2048[2].should.equal(1);
+           globalpublic_2048[3].should.equal(34);
+          
+          
+        });
+        it("should if 1024, start with [48,129,159,48]",function(){
+           globalpublic_1024[0].should.equal(48);
+           globalpublic_1024[1].should.equal(129);
+           globalpublic_1024[2].should.equal(159);
+           globalpublic_1024[3].should.equal(48);
+        });
+        it("should if 2048, contain :rsaEncrypt phrase",function(){
+          globalpublic_2048[5].should.equal(13);
+           globalpublic_2048[6].should.equal(6);
+           globalpublic_2048[7].should.equal(9);
+           globalpublic_2048[8].should.equal(42); 
+           globalpublic_2048[9].should.equal(134);
+           globalpublic_2048[10].should.equal(72);
+           globalpublic_2048[11].should.equal(134);
+           globalpublic_2048[12].should.equal(247);
+           globalpublic_2048[13].should.equal(13);
+           globalpublic_2048[14].should.equal(1);
+           globalpublic_2048[15].should.equal(1);
+           globalpublic_2048[16].should.equal(1);
+           globalpublic_2048[17].should.equal(5);
+           globalpublic_2048[18].should.equal(0);
+        });
+        it("should if 1024, contain :rsaEncrypt phrase",function(){
+          globalpublic_1024[4].should.equal(13);
+           globalpublic_1024[5].should.equal(6);
+           globalpublic_1024[6].should.equal(9);
+           globalpublic_1024[7].should.equal(42); 
+           globalpublic_1024[8].should.equal(134);
+           globalpublic_1024[9].should.equal(72);
+           globalpublic_1024[10].should.equal(134);
+           globalpublic_1024[11].should.equal(247);
+           globalpublic_1024[12].should.equal(13);
+           globalpublic_1024[13].should.equal(1);
+           globalpublic_1024[14].should.equal(1);
+           globalpublic_1024[15].should.equal(1);
+           globalpublic_1024[16].should.equal(5);
+           globalpublic_1024[17].should.equal(0);
+
+        });
+        
+        it("should end with [2,3,1,0,1]",function(){
+          var i = (globalpublic_1024.length - 5);
+          globalpublic_1024[i++].should.equal(2);
+           globalpublic_1024[i++].should.equal(3);
+           globalpublic_1024[i++].should.equal(1);
+           globalpublic_1024[i++].should.equal(0);
+           globalpublic_1024[i++].should.equal(1);
+           
+           i = (globalpublic_2048.length - 5);
+           globalpublic_2048[i++].should.equal(2);
+           globalpublic_2048[i++].should.equal(3);
+           globalpublic_2048[i++].should.equal(1);
+           globalpublic_2048[i++].should.equal(0);
+           globalpublic_2048[i++].should.equal(1);
+          
+          
         });
       });
 
@@ -76,11 +175,65 @@
   //not working apperently
   return RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.should.be.a('Object');
   });
-        it("should generate a publicKey such that a public have length 162",function(){
-          return RymdCrypto.Back._generateRSAKeypair(testArgs._generateRSAKeypair.keyLength).should.eventually.have.property('privateKey').with.lengthOf(637);
+        it("should generate a 1024 privateKey such that it have length 637",function(){
+          return RymdCrypto.Back._generateRSAKeypair(1024).should.eventually.have.property('privateKey').with.lengthOf(637);
         });
+        it("should generate a 2048 privateKey such that it have length 1218",function(){
+          this.timeout(10000);
+          return RymdCrypto.Back._generateRSAKeypair(2048).should.eventually.eventually.have.property('privateKey').with.lengthOf(1218);
+        });
+        
+        it("should if 2048, start with [48,130,1,34,48]",function(){
+           globalpublic_2048[0].should.equal(48);
+           globalpublic_2048[1].should.equal(130);
+           globalpublic_2048[2].should.equal(1);
+           globalpublic_2048[3].should.equal(34);
+          
+          
+        });
+        it("should if 1024, start with [48,129,159,48]",function(){
+           globalpublic_1024[0].should.equal(48);
+           globalpublic_1024[1].should.equal(129);
+           globalpublic_1024[2].should.equal(159);
+           globalpublic_1024[3].should.equal(48);
+        });
+        it("should if 2048, contain :rsaEncrypt phrase",function(){
+          globalpublic_2048[5].should.equal(13);
+           globalpublic_2048[6].should.equal(6);
+           globalpublic_2048[7].should.equal(9);
+           globalpublic_2048[8].should.equal(42); 
+           globalpublic_2048[9].should.equal(134);
+           globalpublic_2048[10].should.equal(72);
+           globalpublic_2048[11].should.equal(134);
+           globalpublic_2048[12].should.equal(247);
+           globalpublic_2048[13].should.equal(13);
+           globalpublic_2048[14].should.equal(1);
+           globalpublic_2048[15].should.equal(1);
+           globalpublic_2048[16].should.equal(1);
+           globalpublic_2048[17].should.equal(5);
+           globalpublic_2048[18].should.equal(0);
+        });
+        it("should if 1024, contain :rsaEncrypt phrase",function(){
+          globalpublic_1024[4].should.equal(13);
+           globalpublic_1024[5].should.equal(6);
+           globalpublic_1024[6].should.equal(9);
+           globalpublic_1024[7].should.equal(42); 
+           globalpublic_1024[8].should.equal(134);
+           globalpublic_1024[9].should.equal(72);
+           globalpublic_1024[10].should.equal(134);
+           globalpublic_1024[11].should.equal(247);
+           globalpublic_1024[12].should.equal(13);
+           globalpublic_1024[13].should.equal(1);
+           globalpublic_1024[14].should.equal(1);
+           globalpublic_1024[15].should.equal(1);
+           globalpublic_1024[16].should.equal(5);
+           globalpublic_1024[17].should.equal(0);
+
+        });
+        
       });
     });
+
 
   describe("_uint8ArrayToString",function(){
     it("should return a string",function(){

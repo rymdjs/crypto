@@ -6,7 +6,8 @@
   "main": "lib/crypto.js",
   "dependencies": {
     "q": "1.0.x",
-    "bignumber-jt": "~1.2.0"
+    "bignumber-jt": "~1.2.0",
+    "asmcrypto.js": "git://github.com/vibornoff/asmcrypto.js.git#master"
   },
   "scripts": {
     "test": "gulp test"

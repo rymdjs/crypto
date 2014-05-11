@@ -11,8 +11,9 @@ The interface will provide the following:
     importKey: function(String,Uint8array) -> Promise(WebCrypto::Key)
     signKey: function(WebCrypto::Key,Uint8Array) -> Promise
     verifyKey: function(WebCrypto::Key,Uint8Array,Uint8Array) -> Promise
-    encrypt**: function(WebCrypto::Key,Uint8Array??) -> Promise(Arraybuffer) 
+    encrypt**: function(WebCrypto::Key,Uint8Array??) -> Promise(Arraybuffer)
     decrypt**: function(WebCrypto::Key,Uint8Array??) -> Promise(Arraybuffer)
+    hash**: function(blob)  -> Promise(blob)
     generateSymmetricKey: function() -> Promise(WebCrypto::Key)
 
 ## Get started

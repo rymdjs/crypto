@@ -1,11 +1,13 @@
 {
-  "name": "crypto",
+  "name": "rymd-crypto",
   "description": "Sample module project for course DATX02",
   "version": "0.0.1",
   "license": "MIT",
   "main": "lib/crypto.js",
   "dependencies": {
-    "q": "1.0.x"
+    "q": "1.0.x",
+    "bignumber-jt": "~1.2.0",
+    "crypto-js": "~3.1"
   },
   "scripts": {
     "test": "gulp test"
@@ -19,6 +21,7 @@
     "gulp-clean": "~0.2.4",
     "gulp-concat": "~2.1.7",
     "gulp-mocha": "~0.4.1",
-    "connect": "~2.13.0"
+    "connect": "~2.13.0",
+    "bignumber-jt": "~1.2.0"
   }
 }

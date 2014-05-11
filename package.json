@@ -6,7 +6,8 @@
   "main": "lib/crypto.js",
   "dependencies": {
     "q": "1.0.x",
-    "bignumber-jt": "~1.2.0"
+    "bignumber-jt": "~1.2.0",
+    "crypto-js": "~3.1"
   },
   "scripts": {
     "test": "gulp test"
